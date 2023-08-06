@@ -14,9 +14,9 @@ function WeatherApp() {
     }
     try {
       const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2290038e37661d719444f4af5c6055e3`
+        `https://api.weatherbit.io/v2.0/current?city=${city}&key=b208828cefe14e9c804302fbff5fee45`
       );
-      setWeatherData(response.data);
+      setWeatherData(response.data.data[0]); // Data is in data[0]
       setError(null); // Reset error if request is successful
     } catch (error) {
       if (error.response) {
@@ -58,9 +58,9 @@ function WeatherApp() {
       {error && <div className="error-message">{error}</div>}
       {weatherData && (
         <div className="weather-info">
-          <h3>{weatherData.name}</h3>
-          <p>{Math.round(weatherData.main.temp - 273.15)}°C</p>
-          <p>{weatherData.weather[0].description}</p>
+          <h3>{weatherData.city_name}</h3>
+          <p>{weatherData.temp}°C</p>
+          <p>{weatherData.weather.description}</p>
         </div>
       )}
     </div>
